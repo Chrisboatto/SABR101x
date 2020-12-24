@@ -1,0 +1,125 @@
+---
+title: "Module 4"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+
+# INTRODUCTION TO R
+
+# Write a piece of R code that assigns the value 9.5 to the variable name R_to_W
+```{r}
+R_to_W <- 9.5
+```
+
+# What will be the result of the following line of code? Enter the part of the result that is inside the quotes.
+
+# mode(sqrt(5))
+
+```{r}
+mode(sqrt(5))
+```
+
+# Write a single line of code that uses the c function, : notation, and the sd function to calculate the standard deviation of the sequence of integers from 10 through 100. Do not include any spaces in your code so that the grader will give you credit. Additionally, no variable assignment is necessary; please use just a single line of code.
+
+```{r}
+sd(c(10:100))
+```
+
+# Now, using [] and $ notation, write a line of code that returns Mike Trout's number of home runs (for this data set).
+
+```{r}
+bb_data$HR[3]
+```
+
+
+# MANIPULATING DATA AND GRAPHING
+
+# To answer the questions that follow, download the 2000_MLB_SS that contains data from Fangraphs for qualified MLB Shortstops from the 2000 season.
+
+# Download the above csv, place it in your R Directory, and then load it into R using the read.csv command, either writing the name of the file or using file.choose. Store it in a data frame called SS_2000.
+
+# Now, view the data frame as shown in the previous video to answer the following questions:
+
+# How many shortstops qualified for the batting title in 2000?
+```{r}
+SS_2000 <- read.csv(file.choose())
+View(SS_2000)
+
+Answer = 20
+```
+
+# Using the column sort feature in RStudio, what is the name of player with the lowest SLG among qualifying SS in 2000?
+
+```{r}
+Aswer: Rey Sanchez
+```
+
+# Create a new data frame that takes a subset of SS_2000 that includes only players with an OPS (OBP + SLG) over .750, using either the subset function or the [] notation. Call this data frame SS_750.
+
+# How many qualified shortstops in 2000 had at least a .750 OPS?
+
+```{r}
+SS_2000 <- mutate(SS_2000, OPS = OBP + SLG)
+SS_2000_750_OPS <- filter(SS_2000, OPS > 0.750)
+
+Answer: 12
+```
+
+# Which shortstop with an OPS greater than .750 in 2000 created the most negative defense value (as measured by "Fld")?
+
+```{r}
+Answer = Derek Jeter
+```
+
+# Now, download the 2001_MLB_SS csv, containing similar data to SS_2000, but for 2001 qualified SS. Read it in and store it in a data frame called SS_2001.
+
+```{r}
+SS_2001 <- read.csv(file.choose())
+```
+
+# Now, merge the two data frames together, on playerid, and store the result in a data frame called SS_2000_2001. Note that the default join (which we will use) is the equivalent of an inner join in SQL, where only rows that match in both data frame are kept.
+
+# How many shortstops qualified for the batting title in both 2000 and 2001?
+
+```{r}
+SS_2000_2001 <- merge(SS_2000, SS_2001, by = "playerid")
+
+Answer = 12
+```
+
+# Using your merged data frame, what is the correlation between wRC+ in year 2000 and wRC+ in year 2001, among shortstops who qualified both years? Use the cor function for this, which is cor(variable1,variable2). Note that since wRC+ is read in as "wRC." in each data frame, the two variables appear in the data frame as "wRC..x" and "wRC..y" Round your answer to three decimal places.
+
+```{r}
+cor(SS_2000_2001$wRC..x,SS_2000_2001$wRC..y)
+```
+
+# Finally, create a new variable in your merged data frame called Fld_Tot, equal to the sum of Fld in both years.
+
+# Which player had the second largest positive Fld total over the two years?
+
+```{r}
+SS_2000_2001 <- mutate(SS_2000_2001, Fld_Tot = Fld.x + Fld.y)
+
+Answer: Neifi Perez
+```
+
+# First, take a subset of the SS_2000 data frame, looking only at those with an OPS (OBP + SLG) lower than .700. Store this in a data frame. Now, find the player with the best WAR among those with an OPS lower than .700.
+
+```{r}
+SS_2000_below_700 <- filter(SS_2000, OPS < 0.700)
+```
+
+
+# What is the row number of this player?
+
+```{r}
+which.max(SS_2000_below_700$WAR)
+```
+
+# What was his WAR?
+
+```{r}
+max(SS_2000_below_700$WAR)
+```

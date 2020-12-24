@@ -1,0 +1,116 @@
+---
+title: "Module 5"
+output: html_notebook
+---
+
+# Functions and Loops in R
+
+```{r}
+myFunction <- function(sin,doub,trip,homer,AB){
+
+    return((sin+2*doub+3*trip+4*homer)/AB)}
+
+myFunction(7,2,1,5,50)
+```
+# What value will the previous code return?
+
+
+```{r}
+Answer = 0.68
+```
+
+# What is the name of the baseball statistic the previous function calculates?
+
+```{r}
+Answer = SLG
+```
+
+
+# Use the following pieces of code
+
+```{r}
+# A.
+
+greater50A <- function(HRVector,threshold){
+
+  count <- 0
+
+  for(i in 1:3){
+
+    count = count + ifelse(HRVector[i] > threshold, 1, 0)
+
+  }
+
+  fifty <- count/length(HRVector) >= .5
+
+  return(fifty)
+
+}
+
+# B.
+
+greater50B <- function(HRVector,threshold){
+
+fifty <- HRVector > threshold
+
+return(fifty)
+
+}
+
+# C.
+
+greater50C <- function(){
+
+  count <- 0
+
+  for(i in 1:length(HRVector)){
+
+    count = count + ifelse(HRVector[i] > threshold, 1, 0)
+
+  }
+
+  fifty <- count/length(HRVector) >= .5
+
+  return(fifty)
+
+}
+
+# D.
+
+greater50D <- function(HRVector,threshold){
+
+  count <- 0
+
+  for(i in 1:length(HRVector)){
+
+    count = count + ifelse(HRVector[i] > threshold, 1, 0)
+
+  }
+
+  fifty <- count/length(HRVector) >= .5
+
+  return(fifty)
+
+}
+```
+
+# We would like to write a function that takes in a vector of Home Runs and a threshold, and returns TRUE if at least 50% of the values in the vector return are greater than the threshold. For example, greater50(c(10,15,20),14) should return TRUE, while greater50(c(10,14,20),14) should return FALSE.
+
+```{r}
+Answer = D
+```
+
+# To obtain the Retrosheet data used from, go to the Retrosheet Database under the SQL Sandbox portion of the course. Then, run the following query:
+
+# SELECT *
+
+# FROM games
+
+# WHERE YEAR(date) >= 2000 AND YEAR(date) <= 2009
+
+# Use the instructions on the earlier video to download the Retrosheet data used in the videos. Place it in your working directory and load it into R using the read.csv command. Now, using the day variable from this data frame, and code similar to that from the video, calculate the fraction of games played on the weekend (Saturday or Sunday). Enter your answer as a number between 0 and 1, and round to 3 decimal places.
+
+```{r}
+Retro_sheet <- read.csv(file.choose())
+(sum(Retro_sheet$day == 'Sat') + sum(Retro_sheet$day == 'Sun')) / nrow(Retro_sheet)
+```
